@@ -108,20 +108,53 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        //Espera recibir los datos de entrada.
+       //Espera recibir los datos de entrada.
         paciente = new Paciente();
         try{
-            
             String tmpNombre = textfieldNombrePaciente.getText();
             String edadString = textfieldEdadPaciente.getText();
             int tmpEdad = Integer.parseInt(edadString);
+            boolean adulto;
+            //seleccion de la prueba
             
+            if(tmpEdad>16){
+                adulto=true;//mientras se construye la prueba
+            }
+            else{
+                adulto=false;//mientras se construye la prueba
+            }
+            //exepcion de tamaño del nombre
+            if(tmpNombre.length()>75) {
+                    throw new IndexOutOfBoundsException
+                    ("ERROR el nombre es muy largo, use 75 letras o menos");
+                } 
+            
+            //excepcion de edad
+            if(tmpEdad<0||tmpEdad>120) {
+                    throw new Exception
+                    ("ERROR edad fuera del rango, pruebe un numero entre 0 y 120");
+                }
+            //excepcion de campos vacios
+            if(edadString.equals(null)||tmpNombre.equals(null)) {
+                throw new IllegalArgumentException
+                ("ERROR alguno de los campos esta vacio");
+            }   
             //Procesar los datos
             paciente.setNombre(tmpNombre);
             paciente.setEdad(tmpEdad);
-        }catch(IllegalArgumentException e){
+        }
+         //IndexOutOfBoundsException
+        catch(IndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(null, "ERROR el nombre es muy largo, use 75 letras o menos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        //
+        catch(IllegalArgumentException e){
             //Mostrar mensaje de error
             JOptionPane.showMessageDialog(null, "ERROR alguno de los campos esta vacio", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        //excepcion de edad: menor a 0
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "ERROR edad fuera del rango, pruebe una edad entre 0 y 120", "Error", JOptionPane.ERROR_MESSAGE);
         }
         //System.out.println("Nombre paciente: " + nombrePaciente + " \n EdadPaciente : " + edadPaciente);
         
