@@ -110,6 +110,7 @@ public class Menu extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
        //Espera recibir los datos de entrada.
         paciente = new Paciente();
+        boolean dat=true;
         try{
             String tmpNombre = textfieldNombrePaciente.getText();
             String edadString = textfieldEdadPaciente.getText();
@@ -125,23 +126,30 @@ public class Menu extends javax.swing.JFrame {
             }
             //exepcion de tamaño del nombre
             if(tmpNombre.length()>75) {
-                    throw new IndexOutOfBoundsException
+                dat=false;    
+                throw new IndexOutOfBoundsException
                     ("ERROR el nombre es muy largo, use 75 letras o menos");
                 } 
             
             //excepcion de edad
             if(tmpEdad<0||tmpEdad>120) {
-                    throw new Exception
+                dat=false;  
+                throw new Exception
                     ("ERROR edad fuera del rango, pruebe un numero entre 0 y 120");
                 }
             //excepcion de campos vacios
             if(edadString.equals(null)||tmpNombre.equals(null)) {
+                dat=false;
                 throw new IllegalArgumentException
                 ("ERROR alguno de los campos esta vacio");
             }   
             //Procesar los datos
             paciente.setNombre(tmpNombre);
             paciente.setEdad(tmpEdad);
+            if(dat){
+                new Instrucciones(paciente).setVisible(true);
+                dispose();
+            }
         }
          //IndexOutOfBoundsException
         catch(IndexOutOfBoundsException e){

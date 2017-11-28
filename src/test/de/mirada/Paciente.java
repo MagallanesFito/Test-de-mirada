@@ -26,4 +26,10 @@ public class Paciente {
     public void setEdad(int edad){
         this.edad = edad;
     }
+    public int getEdad(){
+        return edad;
+    }
+    public String getNombre(){
+        return nombre;
+    }
 }
